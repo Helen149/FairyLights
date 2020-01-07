@@ -6,75 +6,44 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FairyLights
-{
-    class GameModel
-    {
-        public static Lights[] lights;
-        public static void CreateLights(int count)
-        {
-            lights = new Lights[count];
-            for(int i=0; i<count; i++)
-            {
-               lights[i] = new Lights(Tuple.Create(i*100, i*100), i%2==0);
-            }
-            
-        }
-
-        public static int GetXLight(int number)
-        {
-            
-            return lights[number].GetCoordinate().Item1;
-        }
-
-        public static int GetYLight(int number)
-        {
-
-            return lights[number].GetCoordinate().Item2;
-        }
-
-        public static bool GetStateLight(int number)
-        {
-            return lights[number].GetState();
-        }
-    }
-
-    class Lights 
-    {
-        Tuple<int, int> coordinate;
-        bool stateOn;
-
-        public Lights(Tuple<int, int> coordinate, bool stateOn)
-        {
-            this.coordinate = coordinate;
-            this.stateOn = stateOn;
-        }
-        public Tuple<int, int> GetCoordinate()
-        {
-            return coordinate;
-        }
-
-        public bool GetState()
-        {
-            return stateOn;
-        }
-    }
-
+{ 
     class MyForm : Form
     {
+        
         protected override void OnPaint(PaintEventArgs e)
         {
             var graphics = e.Graphics;
             for(int i=0; i<GameModel.lights.Length; i++)
             {
                 Brush color = GameModel.GetStateLight(i) ? Brushes.Red : Brushes.Black;
-                graphics.FillEllipse(color, GameModel.GetXLight(i), GameModel.GetYLight(i), 100, 100);
+                graphics.FillEllipse(color, GameModel.GetXLight(i)- Lights.GetRadius(), GameModel.GetYLight(i)- Lights.GetRadius(), 2*Lights.GetRadius(), 2*Lights.GetRadius());
             }
 
         }
 
+        protected override void OnMouseClick(MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                for(int i = 0; i < GameModel.lights.Length; i++)
+                {
+                    var dx = e.X - GameModel.GetXLight(i);
+                    var dy = e.Y - GameModel.GetYLight(i);
+                    var rad = Lights.GetRadius();
+                    if ((dx*dx+dy*dy) <= (rad*rad))
+                    {
+                        GameModel.lights[i].SetState(!GameModel.GetStateLight(i));
+                        Invalidate();
+                    }
+                        
+                }
+               
+            }
+        }
 
         public MyForm(GameModel game)
         {
+            Lights.SetRadius(ClientSize.Width, ClientSize.Height);
             GameModel.CreateLights(3);
         }
 
