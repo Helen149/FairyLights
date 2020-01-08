@@ -21,7 +21,15 @@ namespace FairyLights
         {
             return coordinate;
         }
+        public int GetX()
+        {
+            return coordinate.Item1;
+        }
 
+        public int GetY()
+        {
+            return coordinate.Item2;
+        }
         public bool GetState()
         {
             return stateOn;
@@ -37,7 +45,7 @@ namespace FairyLights
         }
         public static void SetRadius(int wight, int height)
         {
-            radius = Math.Min(wight, height) / 6;
+            radius = Math.Min(wight, height) / 12;
         }
     }
 }
