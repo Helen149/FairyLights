@@ -14,6 +14,7 @@ namespace FairyLights
             DoubleBuffered = true;
             
             MouseClick += controller.OnMouseClick;
+            MouseDoubleClick += controller.OnMouseClick;
             Paint += controller.OnPaint;
         }
 

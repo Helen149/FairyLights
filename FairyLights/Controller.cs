@@ -17,7 +17,7 @@ namespace FairyLights
         {
             GameForm = new MainForm();
             GameForm.ClientSize = new Size(wigth, heigth);
-            Game = new GameModel(wigth, heigth, 5);
+            Game = new GameModel(wigth, heigth, 2);
         }
 
         public void OnMouseClick(object sender, MouseEventArgs e)

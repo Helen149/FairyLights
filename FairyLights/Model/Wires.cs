@@ -9,10 +9,10 @@ namespace FairyLights
     class Wires
     {
         public int Length { get; private set; }
-        public Point CoordinateStart { get; set; }
+        public PointF CoordinateStart { get; set; }
         public int Direction { get; set; }
 
-        public Wires(Point coordinateStart, int direction, int length) 
+        public Wires(PointF coordinateStart, int direction, int length) 
         {
             CoordinateStart = coordinateStart;
             Direction = direction;
@@ -22,7 +22,7 @@ namespace FairyLights
 
     class ParamInModel
     {
-        public Point[] Offset { get; private set; }
+        public PointF[] Offset { get; private set; }
         public int Length { get; private set; }
 
         public int Radius { get; private set; }
@@ -30,7 +30,7 @@ namespace FairyLights
         public ParamInModel(int wight, int height, int rank)
         {
             DefinitionLengthWire(wight, height, rank);
-            Offset = new Point[GameModel.FormFactor];
+            Offset = new PointF[GameModel.FormFactor];
             DefinitionOffset();
             DefinitionRadiusLight(wight, height);
         }
@@ -47,12 +47,12 @@ namespace FairyLights
         }
         private void DefinitionOffset()
         {
-            Offset[0] = new Point(-Length / 2, -Length);
-            Offset[1] = new Point(Length / 2, -Length);
-            Offset[2] = new Point(Length, 0);
-            Offset[3] = new Point(Length / 2, Length);
-            Offset[4] = new Point(-Length / 2, Length);
-            Offset[5] = new Point(-Length, 0);
+            Offset[0] = new PointF(-Length / 2, -Length);
+            Offset[1] = new PointF(Length / 2, -Length);
+            Offset[2] = new PointF(Length, 0);
+            Offset[3] = new PointF(Length / 2, Length);
+            Offset[4] = new PointF(-Length / 2, Length);
+            Offset[5] = new PointF(-Length, 0);
         }
 
         public int FindEndX(Wires wire)

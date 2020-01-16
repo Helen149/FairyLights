@@ -38,7 +38,7 @@ namespace FairyLights
                 int xStart = xCenter - (countInRow - 1) * Param.Length;
                 for(int j = 0; j<countInRow; j++, k++)
                 {
-                    Lights[k] = new LightsInModel(new Point(j * delta + xStart, i * delta + yStart), false, Param.Radius);
+                    Lights[k] = new LightsInModel(new PointF(j * delta + xStart, i * delta + yStart), false, Param.Radius);
                     Lights[k].DefinitionLinks(k, countInRow, i, countRow);
                 }
                 countInRow = i < countRow / 2 ? countInRow+1 : countInRow-1;
