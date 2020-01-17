@@ -13,26 +13,28 @@ namespace FairyLights
         public GameModel Game { get; private set; }
         public MainForm GameForm { get; private set; }
 
+        private bool StateGame;
+
         public void CreateGameAndForm(int wigth, int heigth)
         {
             GameForm = new MainForm();
             GameForm.ClientSize = new Size(wigth, heigth);
-            Game = new GameModel(wigth, heigth, 5);
+            Game = new GameModel(wigth, heigth, 2);
+            StateGame = true;
         }
 
         public void OnMouseClick(object sender, MouseEventArgs e)
         {
-            Game.StartGame();
-            GameForm.Invalidate();
-            if (e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Left && StateGame)
             {
                 for (int i = 0; i < Game.Lights.Length; i++)
                 {
                     if (DetectionHitCircle(Game.Lights[i].Light, e.X, e.Y))
                     {
                         RotationWires(Game.Lights[i]);
-                        Game.Lights[i].Light.StateOn = !Game.Lights[i].Light.StateOn;
+                        Game.DefinitionStateLight();
                         GameForm.Invalidate();
+                        DefinitionEndGame();
                     }
 
                 }
@@ -69,6 +71,23 @@ namespace FairyLights
             var rad = light.Radius;
             return (dx * dx + dy * dy) <= (rad * rad);
         }
+
+        private void DefinitionEndGame()
+        {
+            if (CheckLightsOn())
+                StateGame = false;
+        }
+
+        private bool CheckLightsOn()
+        {
+            for (int i = 0; i < Game.Lights.Length; i++)
+            {
+                if (!Game.Lights[i].Light.StateOn)
+                    return false;
+            }
+            return true;
+        }
+
         public static void Main()
         {
             Controller controller = new Controller();

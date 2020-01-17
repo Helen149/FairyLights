@@ -23,7 +23,7 @@ namespace FairyLights
             CreateLights(rank, wight / 2, height / 2);
             ValidationLinks();
             CreateWires();
-            //StartGame();
+            StartGame();
         }
        
         private void CreateLights(int rank, int xCenter, int yCenter)
@@ -117,7 +117,8 @@ namespace FairyLights
         {
             int direction;
             int numberLightConnect;
-            if (Lights[Lights.Length / 2].Wires.Count < rnd.Next(FormFactor - 1)) 
+            Random rnd2 = new Random();
+            if (Lights[Lights.Length / 2].Wires.Count < rnd2.Next(FormFactor - 1)) 
             {
                 for (direction = 0; direction < FormFactor; direction++)
                 {
@@ -157,6 +158,47 @@ namespace FairyLights
                 for (int j = 0; j < Lights[i].Wires.Count; j++)
                     Lights[i].Wires[j].Direction = (Lights[i].Wires[j].Direction + offset) % FormFactor;
             }
+
+            Lights[Lights.Length / 2].Involvement = true;
+            DefinitionStateLight();
         }
+
+
+        public void DefinitionStateLight()
+        {
+            for(int i=0; i<Lights.Length; i++)
+            {
+                if (!Lights[i].Involvement)
+                    Lights[i].Light.StateOn = false;
+            }
+            LightsOn(Lights.Length / 2);
+        }
+
+        private void LightsOn(int numberLight)
+        {
+            for(int i=0; i<Lights[numberLight].Wires.Count; i++)
+            {
+                var direction = Lights[numberLight].Wires[i].Direction;
+                var numbLightConnect = Lights[numberLight].Links[direction];
+                if (DetectionWires(numberLight, direction) && !Lights[numbLightConnect].Light.StateOn)
+                {
+                    Lights[numbLightConnect].Light.StateOn = true;
+                    LightsOn(numbLightConnect);
+                }
+            }
+        }
+        private bool DetectionWires(int numberLight, int direction)
+        {
+            var numbLightConnect = Lights[numberLight].Links[direction];
+            for(int i=0; numbLightConnect!=-1 && i < Lights[numbLightConnect].Wires.Count; i++)
+            {
+                if (Lights[numbLightConnect].Wires[i].Direction == (direction + 3) % 6)
+                    return true;
+            }
+            return false;
+        }
+
+
+
     }
 }
