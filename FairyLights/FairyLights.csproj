@@ -50,6 +50,8 @@
     <Compile Include="Model\GameModel.cs" />
     <Compile Include="Model\Lights.cs" />
     <Compile Include="Controller.cs" />
+    <Compile Include="Model\LightsInModel.cs" />
+    <Compile Include="Model\ParamInModel.cs" />
     <Compile Include="Model\Point.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
