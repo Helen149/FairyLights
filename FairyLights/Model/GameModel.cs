@@ -23,6 +23,7 @@ namespace FairyLights
             CreateLights(rank, wight / 2, height / 2);
             ValidationLinks();
             CreateWires();
+            //StartGame();
         }
        
         private void CreateLights(int rank, int xCenter, int yCenter)
@@ -95,12 +96,8 @@ namespace FairyLights
             int numberLightConnect;
             if (DefinitionExistenceWays(numberLight))
             {
-                do
-                {
-                    direction = rnd.Next(FormFactor);
-                    numberLightConnect = Lights[numberLight].Links[direction];
-                } while (numberLightConnect == -1 || Lights[numberLightConnect].Involvement);
-
+                direction = DefinitionWayToSourse(numberLight, rnd);
+                numberLightConnect = Lights[numberLight].Links[direction];
                 Lights[numberLight].AddWires(direction, Param);
                 Lights[numberLightConnect].AddWires((direction + 3) % 6, Param);
             }
@@ -110,6 +107,30 @@ namespace FairyLights
             }
             return direction;
         }
+
+        private int DefinitionWayToSourse(int numberLight, Random rnd)
+        {
+            int direction;
+            int numberLightConnect;
+            if (Lights[Lights.Length / 2].Wires.Count < rnd.Next(FormFactor - 1)) 
+            {
+                for (direction = 0; direction < FormFactor; direction++)
+                {
+                    numberLightConnect = Lights[numberLight].Links[direction];
+                    if (numberLightConnect == Lights.Length / 2)
+                        return direction;
+                }
+            }
+            
+            do
+            {
+                direction = rnd.Next(FormFactor);
+                numberLightConnect = Lights[numberLight].Links[direction];
+            } while (numberLightConnect == -1 || Lights[numberLightConnect].Involvement);
+            return direction;
+        }
+
+
         private bool DefinitionExistenceWays(int numberLight)
         {
             for (int i = 0; i < FormFactor; i++)
@@ -122,5 +143,15 @@ namespace FairyLights
             return false;
         }
 
+        public void StartGame()
+        {
+            Random rnd = new Random();
+            for(int i=0; i<Lights.Length; i++)
+            {
+                var offset = rnd.Next(1,FormFactor-1);
+                for (int j = 0; j < Lights[i].Wires.Count; j++)
+                    Lights[i].Wires[j].Direction = (Lights[i].Wires[j].Direction + offset) % FormFactor;
+            }
+        }
     }
 }

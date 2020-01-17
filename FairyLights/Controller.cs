@@ -17,11 +17,13 @@ namespace FairyLights
         {
             GameForm = new MainForm();
             GameForm.ClientSize = new Size(wigth, heigth);
-            Game = new GameModel(wigth, heigth, 2);
+            Game = new GameModel(wigth, heigth, 5);
         }
 
         public void OnMouseClick(object sender, MouseEventArgs e)
         {
+            Game.StartGame();
+            GameForm.Invalidate();
             if (e.Button == MouseButtons.Left)
             {
                 for (int i = 0; i < Game.Lights.Length; i++)
