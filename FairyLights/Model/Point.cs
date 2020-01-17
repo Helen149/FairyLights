@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace FairyLights
 {
-    class PointF
+    class Point
     {
         public int X { get; set; }
         public int Y { get; set; }
 
-        public PointF(int x, int y)
+        public Point(int x, int y)
         {
             X = x;
             Y = y;

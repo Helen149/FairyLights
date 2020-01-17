@@ -39,7 +39,7 @@ namespace FairyLights
                 int xStart = xCenter - (countInRow - 1) * Param.Length;
                 for(int j = 0; j<countInRow; j++, k++)
                 {
-                    Lights[k] = new LightsInModel(new PointF(j * delta + xStart, i * delta + yStart), false, Param.Radius);
+                    Lights[k] = new LightsInModel(new Point(j * delta + xStart, i * delta + yStart), false, Param.Radius);
                     Lights[k].DefinitionLinks(k, countInRow, i, countRow);
                 }
                 countInRow = i < countRow / 2 ? countInRow+1 : countInRow-1;
@@ -59,10 +59,15 @@ namespace FairyLights
                 for(int j= 0; j<FormFactor; j++)
                 {
                     int lightConnect = Lights[i].Links[j];
-                    if (lightConnect < 0 || lightConnect >= Lights.Length || Math.Abs(Lights[i].Light.Coordinate.X-Lights[lightConnect].Light.Coordinate.X)>2*Param.Length)
+                    if (lightConnect < 0 || lightConnect >= Lights.Length || ValidationLinkedLights(i, lightConnect))
                         Lights[i].Links[j] = -1;
                 }
             }
+        }
+
+        private bool ValidationLinkedLights(int numbLight, int numbLightConnect)
+        {
+            return Math.Abs(Lights[numbLight].Light.Coordinate.X - Lights[numbLightConnect].Light.Coordinate.X) > 2 * Param.Length;
         }
 
         private void CreateWires()

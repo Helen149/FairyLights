@@ -8,11 +8,11 @@ namespace FairyLights
 {
     class Lights
     {
-        public PointF Coordinate { get; set; }
+        public Point Coordinate { get; set; }
         public int Radius { get; private set; }
         public bool StateOn { get; set; }
 
-        public Lights(PointF coordinate, bool stateOn, int radius)
+        public Lights(Point coordinate, bool stateOn, int radius)
         {
             Coordinate = coordinate;
             StateOn = stateOn;

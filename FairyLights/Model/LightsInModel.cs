@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FairyLights.Model
+namespace FairyLights
 {
     class LightsInModel
     {
@@ -13,7 +13,7 @@ namespace FairyLights.Model
         public List<Wires> Wires { get; private set; }
         public bool Involvement { get; set; }
 
-        public LightsInModel(PointF coordinate, bool stateOn, int radius)
+        public LightsInModel(Point coordinate, bool stateOn, int radius)
         {
             Light = new Lights(coordinate, stateOn, radius);
             Links = new int[GameModel.FormFactor];

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FairyLights.Model
+namespace FairyLights
 {
     class ParamInModel
     {
-        public PointF[] Offset { get; private set; }
+        public Point[] Offset { get; private set; }
         public int Length { get; private set; }
 
         public int Radius { get; private set; }
@@ -16,7 +16,7 @@ namespace FairyLights.Model
         public ParamInModel(int wight, int height, int rank)
         {
             DefinitionLengthWire(wight, height, rank);
-            Offset = new PointF[GameModel.FormFactor];
+            Offset = new Point[GameModel.FormFactor];
             DefinitionOffset();
             DefinitionRadiusLight(wight, height);
         }
@@ -33,12 +33,12 @@ namespace FairyLights.Model
         }
         private void DefinitionOffset()
         {
-            Offset[0] = new PointF(-Length / 2, -Length);
-            Offset[1] = new PointF(Length / 2, -Length);
-            Offset[2] = new PointF(Length, 0);
-            Offset[3] = new PointF(Length / 2, Length);
-            Offset[4] = new PointF(-Length / 2, Length);
-            Offset[5] = new PointF(-Length, 0);
+            Offset[0] = new Point(-Length / 2, -Length);
+            Offset[1] = new Point(Length / 2, -Length);
+            Offset[2] = new Point(Length, 0);
+            Offset[3] = new Point(Length / 2, Length);
+            Offset[4] = new Point(-Length / 2, Length);
+            Offset[5] = new Point(-Length, 0);
         }
 
         public int FindEndX(Wires wire)

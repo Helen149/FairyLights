@@ -9,10 +9,10 @@ namespace FairyLights
     class Wires
     {
         public int Length { get; private set; }
-        public PointF CoordinateStart { get; set; }
+        public Point CoordinateStart { get; set; }
         public int Direction { get; set; }
 
-        public Wires(PointF coordinateStart, int direction, int length) 
+        public Wires(Point coordinateStart, int direction, int length) 
         {
             CoordinateStart = coordinateStart;
             Direction = direction;
