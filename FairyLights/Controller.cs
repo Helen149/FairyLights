@@ -19,19 +19,19 @@ namespace FairyLights
         {
             GameForm = new MainForm();
             GameForm.ClientSize = new Size(wigth, heigth);
-            Game = new GameModel(wigth, heigth, 2);
+            Game = new GameModel(wigth, heigth, 5);
             StateGame = true;
         }
 
         public void OnMouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && StateGame)
+            if (StateGame)
             {
                 for (int i = 0; i < Game.Lights.Length; i++)
                 {
                     if (DetectionHitCircle(Game.Lights[i].Light, e.X, e.Y))
                     {
-                        RotationWires(Game.Lights[i]);
+                        RotationWires(Game.Lights[i], e);
                         Game.DefinitionStateLight();
                         GameForm.Invalidate();
                         DefinitionEndGame();
@@ -59,23 +59,37 @@ namespace FairyLights
             }
         }
 
-        private void RotationWires(LightsInModel light)
+        private void RotationWires(LightsInModel light, MouseEventArgs e)
         {
             for (int i = 0; i < light.Wires.Count; i++)
-                light.Wires[i].Direction = (light.Wires[i].Direction + 1) % GameModel.FormFactor;
+            {
+                var direction = light.Wires[i].Direction;
+                if (e.Button == MouseButtons.Left)
+                    light.Wires[i].Direction = (direction + 1) % GameModel.FormFactor;
+                else
+                    light.Wires[i].Direction = Math.Abs((direction +GameModel.FormFactor- 1)) % GameModel.FormFactor;
+            }
+                
         }
         private bool DetectionHitCircle(Lights light, int x, int y)
         {
             var dx = x - light.Coordinate.X;
             var dy = y - light.Coordinate.Y;
-            var rad = light.Radius;
+            var rad = 2*light.Radius;
             return (dx * dx + dy * dy) <= (rad * rad);
         }
 
         private void DefinitionEndGame()
         {
             if (CheckLightsOn())
+            {
                 StateGame = false;
+                string message = "You WIN!";
+                string caption = "Victory";
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                MessageBox.Show(message, caption, buttons);
+            }
+                
         }
 
         private bool CheckLightsOn()
