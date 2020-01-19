@@ -160,11 +160,11 @@ namespace FairyLights
             }
 
             Lights[Lights.Length / 2].Involvement = true;
-            DefinitionStateLight();
+            DefinitionStateLights();
         }
 
 
-        public void DefinitionStateLight()
+        public void DefinitionStateLights()
         {
             for(int i=0; i<Lights.Length; i++)
             {

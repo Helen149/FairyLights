@@ -19,7 +19,7 @@ namespace FairyLights
         {
             GameForm = new MainForm();
             GameForm.ClientSize = new Size(wigth, heigth);
-            Game = new GameModel(wigth, heigth, 5);
+            Game = new GameModel(wigth, heigth, 2);
             StateGame = true;
         }
 
@@ -32,7 +32,7 @@ namespace FairyLights
                     if (DetectionHitCircle(Game.Lights[i].Light, e.X, e.Y))
                     {
                         RotationWires(Game.Lights[i], e);
-                        Game.DefinitionStateLight();
+                        Game.DefinitionStateLights();
                         GameForm.Invalidate();
                         DefinitionEndGame();
                     }
