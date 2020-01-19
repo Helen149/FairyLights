@@ -75,7 +75,8 @@ namespace FairyLights
         {
             var dx = x - light.Coordinate.X;
             var dy = y - light.Coordinate.Y;
-            var rad = 2*light.Radius;
+            var partWireToClick = 2.0 / 3;
+            var rad = partWireToClick * Game.Param.Length;
             return (dx * dx + dy * dy) <= (rad * rad);
         }
 

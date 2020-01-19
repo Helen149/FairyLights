@@ -28,7 +28,7 @@ namespace FairyLights
        
         private void CreateLights(int rank, int xCenter, int yCenter)
         {
-            int count = 6*CalcCountLights(rank)+1;
+            int count = FormFactor*CalcCountLights(rank)+1;
             Lights = new LightsInModel[count];
             int countRow = 1 + 2 * rank;
             int countInRow = countRow - rank;

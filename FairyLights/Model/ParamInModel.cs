@@ -29,7 +29,9 @@ namespace FairyLights
         }
         private void DefinitionRadiusLight(int wight, int height)
         {
-            Radius = Math.Min(wight, height) / 60;
+            var partWire = 3;
+            var maxSizeLight = Math.Min(wight, height) / 60;
+            Radius = maxSizeLight < Length/partWire? maxSizeLight : Length/partWire;
         }
         private void DefinitionOffset()
         {
