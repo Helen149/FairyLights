@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FairyLights", "FairyLights\FairyLights.csproj", "{CB719DF5-64AD-4F77-92C9-CED920281228}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{495F8AFF-016C-4D38-B85E-1F08BD15C473}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitTestProject", "NUnitTestProject\NUnitTestProject.csproj", "{9D6D30E2-B852-4680-82F2-AB685412E6AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{CB719DF5-64AD-4F77-92C9-CED920281228}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB719DF5-64AD-4F77-92C9-CED920281228}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB719DF5-64AD-4F77-92C9-CED920281228}.Release|Any CPU.Build.0 = Release|Any CPU
-		{495F8AFF-016C-4D38-B85E-1F08BD15C473}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{495F8AFF-016C-4D38-B85E-1F08BD15C473}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{495F8AFF-016C-4D38-B85E-1F08BD15C473}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{495F8AFF-016C-4D38-B85E-1F08BD15C473}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D6D30E2-B852-4680-82F2-AB685412E6AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D6D30E2-B852-4680-82F2-AB685412E6AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D6D30E2-B852-4680-82F2-AB685412E6AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D6D30E2-B852-4680-82F2-AB685412E6AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

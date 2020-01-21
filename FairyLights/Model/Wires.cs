@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FairyLights
 {
-    class Wires
+    public class Wires
     {
         public int Length { get; private set; }
         public Point CoordinateStart { get; set; }

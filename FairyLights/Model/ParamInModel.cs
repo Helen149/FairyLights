@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FairyLights
 {
-    class ParamInModel
+    public class ParamInModel
     {
         public Point[] Offset { get; private set; }
         public int Length { get; private set; }
