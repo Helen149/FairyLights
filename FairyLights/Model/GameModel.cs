@@ -149,7 +149,7 @@ namespace FairyLights
             return false;
         }
 
-        public void StartGame()
+        private void StartGame()
         {
             Random rnd = new Random();
             for(int i=0; i<Lights.Length; i++)

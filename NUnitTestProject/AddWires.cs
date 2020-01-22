@@ -1,36 +1,37 @@
 ﻿using NUnit.Framework;
 using FairyLights;
-using System;
 
 namespace NUnitTestProject
 {
     [TestFixture]
-    public class FindEndX
+    public class AddWires
     {
-        [TestCase(0, -5)]
-        [TestCase(1, 5)]
-        [TestCase(2, 10)]
-        [TestCase(3, 5)]
-        [TestCase(4, -5)]
-        [TestCase(5, -10)]
-        public void PositiveTest(int direction, int ans)
+        [TestCase(1)]
+        [TestCase(5)]
+        public void CreateTest(int countWires)
         {
             var param = new ParamInModel(20, 20, 0);
-            var wire = new Wires(new Point(0, 0), direction, param.Length);
+            var light = new LightsInModel(new Point(0, 0), true, 5);
 
-            var result = param.FindEndX(wire);
+            for(int i=0; i<countWires; i++)
+                light.AddWires(0, param);
 
-            Assert.AreEqual(ans, result);
+            Assert.That(light.Wires, Is.All.Not.Null);
+            Assert.That(light.Wires, Is.All.TypeOf(typeof(Wires)));
         }
 
-        [TestCase(6)]
-        [TestCase(-1)]
-        public void NegativeTest(int direction)
+        [Test]
+        public void CheckParamWires()
         {
             var param = new ParamInModel(20, 20, 0);
-            var wire = new Wires(new Point(0, 0), direction, param.Length);
+            var light = new LightsInModel(new Point(0, 0), true, 5);
+            var direction = 0;
+            
+            light.AddWires(direction, param);
 
-            Assert.Catch<Exception>(() => param.FindEndX(wire));
+            Assert.AreEqual(light.Light.Coordinate, light.Wires[0].CoordinateStart);
+            Assert.AreEqual(direction, light.Wires[0].Direction);
+            Assert.AreEqual(param.Length, light.Wires[0].Length);
         }
     }
 }
