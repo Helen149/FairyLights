@@ -4,7 +4,7 @@ using FairyLights;
 namespace NUnitTestProject
 {
     [TestFixture]
-    public class AddWires
+    public class TestAddWires
     {
         [TestCase(1)]
         [TestCase(5)]

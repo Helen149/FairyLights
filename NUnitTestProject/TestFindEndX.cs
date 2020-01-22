@@ -1,24 +1,24 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using FairyLights;
 using System;
 
 namespace NUnitTestProject
 {
     [TestFixture]
-    public class FindEndY
+    public class TestFindEndX
     {
-        [TestCase(0, -10)]
-        [TestCase(1, -10)]
-        [TestCase(2, 0)]
-        [TestCase(3, 10)]
-        [TestCase(4, 10)]
-        [TestCase(5, 0)]
+        [TestCase(0,-5)]
+        [TestCase(1, 5)]
+        [TestCase(2, 10)]
+        [TestCase(3, 5)]
+        [TestCase(4, -5)]
+        [TestCase(5, -10)]
         public void PositiveTest(int direction, int ans)
         {
-            var param = new ParamInModel(20, 20, 0);
+            var param = new ParamInModel(20,20,0);
             var wire = new Wires(new Point(0, 0), direction, param.Length);
 
-            var result = param.FindEndY(wire);
+            var result = param.FindEndX(wire);
 
             Assert.AreEqual(ans, result);
         }
@@ -30,7 +30,7 @@ namespace NUnitTestProject
             var param = new ParamInModel(20, 20, 0);
             var wire = new Wires(new Point(0, 0), direction, param.Length);
 
-            Assert.Catch<Exception>(() => param.FindEndY(wire));
+            Assert.Catch<Exception>(() =>  param.FindEndX(wire));
         }
     }
 }

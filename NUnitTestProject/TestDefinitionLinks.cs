@@ -4,7 +4,7 @@ using FairyLights;
 namespace NUnitTestProject
 {
     [TestFixture]
-    public class DefinitionLinks
+    public class TestDefinitionLinks
     {
         [TestCase(0, 3, 0, 5)]
         [TestCase(9, 5, 2, 5)]
@@ -46,11 +46,11 @@ namespace NUnitTestProject
         [TestCase(2, 5, 4, 5)]
         [TestCase(3, 5, 3, 4)]
         [TestCase(5, 5, 3, 4)]
-        public void TopLinkChecking(int row, int countInRow, int link0, int link1)
+        public void TopLinkChecking(int row, int countRow, int link0, int link1)
         {
             var light = new LightsInModel(new Point(0, 0), true, 5);
 
-            light.DefinitionLinks(9, 5, row, countInRow);
+            light.DefinitionLinks(9, 5, row, countRow);
 
             Assert.AreEqual(link0, light.Links[0]);
             Assert.AreEqual(link1, light.Links[1]);
@@ -60,11 +60,11 @@ namespace NUnitTestProject
         [TestCase(2, 5, 14, 13)]
         [TestCase(3, 5, 14, 13)]
         [TestCase(5, 5, 14, 13)]
-        public void BottomLinkChecking(int row, int countInRow, int link3, int link4)
+        public void BottomLinkChecking(int row, int countRow, int link3, int link4)
         {
             var light = new LightsInModel(new Point(0, 0), true, 5);
 
-            light.DefinitionLinks(9, 5, row, countInRow);
+            light.DefinitionLinks(9, 5, row, countRow);
 
             Assert.AreEqual(link3, light.Links[3]);
             Assert.AreEqual(link4, light.Links[4]);
