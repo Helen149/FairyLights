@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FairyLights
 {
-    class LightsInModel
+    public class LightsInModel
     {
         public Lights Light { get; private set; }
         public int[] Links { get; private set; }
