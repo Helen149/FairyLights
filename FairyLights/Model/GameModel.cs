@@ -11,7 +11,7 @@ namespace FairyLights
         void CreateGame(int wight, int height, int rank);
     }
 
-    class GameModel//: IGameModel
+    public class GameModel//: IGameModel
     {
         public LightsInModel[] Lights { get; private set; }
         public ParamInModel Param { get; private set; }
