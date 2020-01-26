@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace FairyLights
 {
-    class Controller
+    class GameController
     {
         public GameModel Game { get; private set; }
         public MainForm GameForm { get; private set; }
@@ -105,10 +105,13 @@ namespace FairyLights
 
         public static void Main()
         {
-            Controller controller = new Controller();
+            /*GameController controller = new GameController();
             controller.CreateGameAndForm(800, 800);
             controller.GameForm.SubscriptionEvent(controller);
-            Application.Run(controller.GameForm);
+            Application.Run(controller.GameForm);*/
+            var mainController = new MainController(800, 800);
+            Application.EnableVisualStyles();
+            Application.Run(mainController.MainForm);
         }
     }
 }

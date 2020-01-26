@@ -27,6 +27,7 @@ namespace FairyLights
 
             Color[] colors = { Color.FromArgb(240, 0, 0, 0) };
             pthGrBrush.SurroundColors = colors;
+            pthGrBrush.FocusScales = new PointF(0.2f, 0.2f);
             e.Graphics.FillEllipse(pthGrBrush, light.Coordinate.X - radius, light.Coordinate.Y - radius, 2 * radius, 2 * radius);
             Pen blackPen = new Pen(Color.Black, 3);
             e.Graphics.DrawEllipse(blackPen, light.Coordinate.X - radius, light.Coordinate.Y - radius, 2 * radius, 2 * radius);
@@ -36,6 +37,12 @@ namespace FairyLights
         {
             Pen blackPen = new Pen(Color.Black, 3);
             e.Graphics.DrawLine(blackPen, wire.CoordinateStart.X, wire.CoordinateStart.Y, param.FindEndX(wire), param.FindEndY(wire));
+        }
+
+        public static void DrawButton(PaintEventArgs e, Button button)
+        {
+            Pen blackPen = new Pen(Color.Black, 3);
+            e.Graphics.DrawRectangle(blackPen, button.Location.X, button.Location.Y, button.Width, button.Height);
         }
     }
 }
