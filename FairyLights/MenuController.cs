@@ -12,33 +12,37 @@ namespace FairyLights
     {
         public event ChangeGameState ChangeGame;
         public event AddNewButton AddButton;
-        Menu MainMenu { get; set; }
-        public int ChooseGameStage { get; private set; }
-        Size sizeForm;
+        public Menu MainMenu { get; private set; }
         public List<Button> ButtonMenu { get; private set; }
-        public MenuController(Size sizeForm)
+        public MenuController()
         {
             MainMenu = new Menu();
-            this.sizeForm = sizeForm;
             ButtonMenu = new List<Button>();
         }
 
-        public void CreateButton()
+        public void CreateButton(Size sizeForm)
         {
             for (int i = 0; i < MainMenu.ItemsMenu.Count; i++)
             {
                 ButtonMenu.Add(new Button());
-                DefinitionButton(i);
+                DefinitionButton(i, sizeForm);
                 AddButton?.Invoke(ButtonMenu[i]);
                 ButtonMenu[i].MouseClick += OnMouseClick;
             }
         }
 
-        private void DefinitionButton(int numberButton)
+        private void DefinitionButton(int numberButton, Size sizeForm)
         {
             ButtonMenu[numberButton].Text = MainMenu.ItemsMenu[numberButton];
-            ButtonMenu[numberButton].Location = new System.Drawing.Point(100 + numberButton * 100, 100 + numberButton * 100);
-            ButtonMenu[numberButton].Size = new Size(100, 100);
+            var countButton = MainMenu.ItemsMenu.Count;
+            var indentTopBottom = 2;
+            var heightBut = sizeForm.Height / (countButton + indentTopBottom);
+            var gap = heightBut / 10;
+            heightBut = heightBut - gap;
+            var sizeFactorText = 5;
+            ButtonMenu[numberButton].Font = new Font("Arial", heightBut/ sizeFactorText);
+            ButtonMenu[numberButton].Size = new Size(sizeForm.Width / 2, heightBut);
+            ButtonMenu[numberButton].Location = new System.Drawing.Point(sizeForm.Width / 4, (numberButton+1) * (heightBut+gap));  
         }
 
         public void OnMouseClick(object sender, MouseEventArgs e)

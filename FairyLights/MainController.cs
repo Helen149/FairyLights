@@ -14,7 +14,7 @@ namespace FairyLights
     {
         event ChangeGameState ChangeGame;
         event AddNewButton AddButton;
-        void CreateButton();
+        void CreateButton(Size sizeForm);
         void OnMouseClick(object sender, MouseEventArgs e);
         void OnPaint(object sender, PaintEventArgs e);
     }
@@ -28,9 +28,9 @@ namespace FairyLights
             MainForm = new MainForm();
             MainForm.ClientSize = new Size(wigth, heigth);
             Controllers = new Controller[1];
-            Controllers[0] = new MenuController(MainForm.ClientSize);
+            Controllers[0] = new MenuController();
             Controllers[0].AddButton += OnAddButton;
-            Controllers[0].CreateButton();
+            Controllers[0].CreateButton(MainForm.ClientSize);
             Controllers[0].ChangeGame += OnChangeGame;
         }
 
