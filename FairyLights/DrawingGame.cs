@@ -39,10 +39,17 @@ namespace FairyLights
             e.Graphics.DrawLine(blackPen, wire.CoordinateStart.X, wire.CoordinateStart.Y, param.FindEndX(wire), param.FindEndY(wire));
         }
 
-        public static void DrawButton(PaintEventArgs e, Button button)
+        public static void DrawBackground(PaintEventArgs e, Size size)
         {
-            Pen blackPen = new Pen(Color.Black, 3);
-            e.Graphics.DrawRectangle(blackPen, button.Location.X, button.Location.Y, button.Width, button.Height);
+            GraphicsPath path = new GraphicsPath();
+            var rect = new Rectangle(0, 0, size.Width, size.Height);
+            path.AddRectangle(rect);
+            PathGradientBrush pthGrBrush = new PathGradientBrush(path);
+            pthGrBrush.CenterColor = Color.FromArgb(255, 255, 255, 255);
+            Color[] colors = { Color.FromArgb(240, 255, 255, 130) };
+            pthGrBrush.SurroundColors = colors;
+            pthGrBrush.FocusScales = new PointF(0.6f, 0.6f);
+            e.Graphics.FillRectangle(pthGrBrush, rect);
         }
     }
 }

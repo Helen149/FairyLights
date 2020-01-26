@@ -14,24 +14,27 @@ namespace FairyLights
         public event AddNewButton AddButton;
         public Menu MainMenu { get; private set; }
         public List<Button> ButtonMenu { get; private set; }
-        public MenuController()
+
+        Size sizeForm;
+        public MenuController(Size sizeForm)
         {
             MainMenu = new Menu();
             ButtonMenu = new List<Button>();
+            this.sizeForm = sizeForm;
         }
 
-        public void CreateButton(Size sizeForm)
+        public void CreateButton()
         {
             for (int i = 0; i < MainMenu.ItemsMenu.Count; i++)
             {
                 ButtonMenu.Add(new Button());
-                DefinitionButton(i, sizeForm);
+                DefinitionButton(i);
                 AddButton?.Invoke(ButtonMenu[i]);
                 ButtonMenu[i].MouseClick += OnMouseClick;
             }
         }
 
-        private void DefinitionButton(int numberButton, Size sizeForm)
+        private void DefinitionButton(int numberButton)
         {
             ButtonMenu[numberButton].Text = MainMenu.ItemsMenu[numberButton];
             var countButton = MainMenu.ItemsMenu.Count;
@@ -56,7 +59,7 @@ namespace FairyLights
         }
         public void OnPaint(object sender, PaintEventArgs e)
         {
-
+            DrawingGame.DrawBackground(e, sizeForm);
         }
     }
 }
