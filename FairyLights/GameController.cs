@@ -11,15 +11,42 @@ namespace FairyLights
     class GameController: IController
     {
         public event ChangeGameState ChangeGame;
-        public event AddNewButton AddButton;
         public GameModel Game { get; private set; }
-
+        public List<Button> ButtonMenu { get; private set; }
+        Panel panel;
         private bool StateGame;
 
-        public GameController(Size sizeForm)
+        public GameController(Panel panel)
         {
-            Game = new GameModel(sizeForm.Width, sizeForm., 2);
             StateGame = true;
+            this.panel = panel;
+            panel.Paint += OnPaint;
+            panel.MouseClick += OnMouseClick;
+            panel.MouseDoubleClick += OnMouseClick;
+            ButtonMenu = new List<Button>();
+            CreateButton();
+        }
+
+        public void OnNewGame(int rank)
+        {
+            Game = new GameModel(panel.Width, panel.Height, rank);
+        }
+
+        private void CreateButton()
+        {
+            ButtonMenu.Add(new Button());
+            ButtonMenu[0].Text = "В меню";
+            ButtonMenu[0].Font = new Font("Arial", 12);
+            ButtonMenu[0].Size = new Size(100, 50);
+            ButtonMenu[0].Location = new System.Drawing.Point(10, panel.Height - 10- ButtonMenu[0].Height);
+            panel.Controls.Add(ButtonMenu[0]);
+            ButtonMenu[0].MouseClick += OnMouseClickButton;
+            
+        }
+
+        public void OnMouseClickButton(object sender, MouseEventArgs e)
+        {
+            ChangeGame?.Invoke(MainController.State["MainMenu"]);
         }
 
         public void OnMouseClick(object sender, MouseEventArgs e)
@@ -32,7 +59,7 @@ namespace FairyLights
                     {
                         RotationWires(Game.Lights[i], e);
                         Game.DefinitionStateLights();
-                        //GameForm.Invalidate();
+                        panel.Invalidate();
                         DefinitionEndGame();
                     }
 
@@ -100,22 +127,6 @@ namespace FairyLights
                     return false;
             }
             return true;
-        }
-
-        public void CreateButton(int numberPanel)
-        {
-
-        }
-
-        public static void Main()
-        {
-            /*GameController controller = new GameController();
-            controller.CreateGameAndForm(800, 800);
-            controller.GameForm.SubscriptionEvent(controller);
-            Application.Run(controller.GameForm);*/
-            var mainController = new MainController(800, 800);
-            Application.EnableVisualStyles();
-            Application.Run(mainController.MainForm);
         }
     }
 }

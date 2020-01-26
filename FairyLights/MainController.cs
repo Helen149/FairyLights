@@ -8,18 +8,16 @@ using System.Threading.Tasks;
 
 namespace FairyLights
 {
-    public delegate void ChangeGameState(int GameState);
-    public delegate void AddNewButton(Button button, int numberPanel);
+    public delegate void ChangeGameState(int gameState);
+    public delegate void StartNewGame(int rankGame);
     public interface IController
     {
         event ChangeGameState ChangeGame;
-        event AddNewButton AddButton;
-        void CreateButton(int numberPanel);
-        void OnMouseClick(object sender, MouseEventArgs e);
-        void OnPaint(object sender, PaintEventArgs e);
+        void OnNewGame(int rank);
     }
     class MainController
     {
+        event StartNewGame NewGame;
         public MainForm MainForm { get; private set; }
         public IController[] Controllers { get; private set; }
         public static Dictionary<string, int> State { get; private set; }
@@ -31,6 +29,8 @@ namespace FairyLights
             MainForm = new MainForm(State.Count - 1, new Size(wigth, heigth));
             Controllers = new IController[State.Count-1];
             CreateControllers();
+            VisabilityPanels(0);
+            NewGame += Controllers[1].OnNewGame;
         }
 
         private void DefinitionState()
@@ -44,35 +44,43 @@ namespace FairyLights
 
         private void CreateControllers()
         {
-            Controllers[0] = new MenuController(MainForm.ClientSize);
-            Controllers[1] = new GameController(MainForm.ClientSize);
+            Controllers[0] = new MenuController(MainForm.Panels[0]);
+            Controllers[1] = new GameController(MainForm.Panels[1]);
 
-            for (int i=0; i<Controllers.Length; i++)
+            for (int i = 0; i < Controllers.Length; i++)
+                Controllers[i].ChangeGame += OnChangeGame;
+        }
+
+        private void VisabilityPanels(int visiblePanel)
+        {
+            for (int i = 0; i < MainForm.Panels.Count; i++)
+                MainForm.Panels[i].Visible = false;
+            MainForm.Panels[visiblePanel].Visible = true;
+        }
+
+        public void OnChangeGame(int gameState)
+        {
+            switch(gameState)
             {
-                SubscriptionEventController(Controllers[i]);
-                Controllers[i].CreateButton(i);
-                MainForm.SubscriptionEvent(MainForm.Panels[i], Controllers[i]);
-            }      
+                case (0):
+                    VisabilityPanels(0);
+                    break;
+                case (1):
+                    VisabilityPanels(1);
+                    NewGame?.Invoke(2);
+                    break;
+            }
         }
 
-        private void SubscriptionEventController(IController controller)
+        public static void Main()
         {
-            controller.AddButton += OnAddButton;
-            controller.ChangeGame += OnChangeGame;
-        }
-        public void OnAddButton(Button button, int numberPanel)
-        {
-            MainForm.Panels[numberPanel].Controls.Add(button);
-        }
-
-        public void OnChangeGame(int GameState)
-        {
-            if(GameState==1)
-                MainForm.BackColor = Color.Aqua;
-            else if(GameState == 2)
-                MainForm.BackColor = Color.Coral;
-            else
-                MainForm.BackColor = Color.LawnGreen;
+            /*GameController controller = new GameController();
+            controller.CreateGameAndForm(800, 800);
+            controller.GameForm.SubscriptionEvent(controller);
+            Application.Run(controller.GameForm);*/
+            var mainController = new MainController(800, 800);
+            Application.EnableVisualStyles();
+            Application.Run(mainController.MainForm);
         }
     }
 }
