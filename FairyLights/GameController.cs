@@ -8,18 +8,17 @@ using System.Windows.Forms;
 
 namespace FairyLights
 {
-    class GameController
+    class GameController: IController
     {
+        public event ChangeGameState ChangeGame;
+        public event AddNewButton AddButton;
         public GameModel Game { get; private set; }
-        public MainForm GameForm { get; private set; }
 
         private bool StateGame;
 
-        public void CreateGameAndForm(int wigth, int heigth)
+        public GameController(Size sizeForm)
         {
-            GameForm = new MainForm();
-            GameForm.ClientSize = new Size(wigth, heigth);
-            Game = new GameModel(wigth, heigth, 2);
+            Game = new GameModel(sizeForm.Width, sizeForm., 2);
             StateGame = true;
         }
 
@@ -33,7 +32,7 @@ namespace FairyLights
                     {
                         RotationWires(Game.Lights[i], e);
                         Game.DefinitionStateLights();
-                        GameForm.Invalidate();
+                        //GameForm.Invalidate();
                         DefinitionEndGame();
                     }
 
@@ -101,6 +100,11 @@ namespace FairyLights
                     return false;
             }
             return true;
+        }
+
+        public void CreateButton(int numberPanel)
+        {
+
         }
 
         public static void Main()

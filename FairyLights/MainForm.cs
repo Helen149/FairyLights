@@ -9,13 +9,31 @@ namespace FairyLights
 { 
     class MainForm : Form
     {
-        public void SubscriptionEvent(Controller controller)
+        public List<Panel> Panels { get; private set; }
+
+        public MainForm(int countPanel, Size size)
+        {
+            ClientSize = size;
+            Panels = new List<Panel>();
+            CreatePanel(countPanel);
+        }
+
+        private void CreatePanel(int countPanel)
+        {
+            for (int i = 0; i < countPanel; i++)
+            {
+                Panels.Add(new Panel());
+                Panels[i].Size = ClientSize;
+                Controls.Add(Panels[i]);
+            }      
+        }
+        public void SubscriptionEvent(Panel panel,IController controller)
         {
             DoubleBuffered = true;
             
-            MouseClick += controller.OnMouseClick;
-            MouseDoubleClick += controller.OnMouseClick;
-            Paint += controller.OnPaint;
+            panel.MouseClick += controller.OnMouseClick;
+            panel.MouseDoubleClick += controller.OnMouseClick;
+            panel.Paint += controller.OnPaint;
         }
 
     }

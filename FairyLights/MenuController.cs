@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FairyLights
 {
-    public class MenuController : Controller
+    public class MenuController : IController
     {
         public event ChangeGameState ChangeGame;
         public event AddNewButton AddButton;
@@ -23,14 +23,14 @@ namespace FairyLights
             this.sizeForm = sizeForm;
         }
 
-        public void CreateButton()
+        public void CreateButton(int numberPanel)
         {
             for (int i = 0; i < MainMenu.ItemsMenu.Count; i++)
             {
                 ButtonMenu.Add(new Button());
                 DefinitionButton(i);
-                AddButton?.Invoke(ButtonMenu[i]);
-                ButtonMenu[i].MouseClick += OnMouseClick;
+                AddButton?.Invoke(ButtonMenu[i], numberPanel);
+                ButtonMenu[i].MouseClick += ButtonClick;
             }
         }
 
@@ -45,17 +45,23 @@ namespace FairyLights
             var sizeFactorText = 5;
             ButtonMenu[numberButton].Font = new Font("Arial", heightBut/ sizeFactorText);
             ButtonMenu[numberButton].Size = new Size(sizeForm.Width / 2, heightBut);
-            ButtonMenu[numberButton].Location = new System.Drawing.Point(sizeForm.Width / 4, (numberButton+1) * (heightBut+gap));  
+            ButtonMenu[numberButton].Location = new System.Drawing.Point(sizeForm.Width / 4, (numberButton+1) * (heightBut+gap));
+            ButtonMenu[numberButton].BackColor = Color.LemonChiffon;
         }
 
-        public void OnMouseClick(object sender, MouseEventArgs e)
+        public void ButtonClick(object sender, MouseEventArgs e)
         {
             if (sender.Equals(ButtonMenu[0]))
-                ChangeGame?.Invoke(1);
+                ChangeGame?.Invoke(MainController.State["MainMenu"]);
             else if (sender.Equals(ButtonMenu[1]))
                 ChangeGame?.Invoke(2);
             else
                 ChangeGame?.Invoke(3);
+        }
+
+        public void OnMouseClick(object sender, MouseEventArgs e)
+        {
+
         }
         public void OnPaint(object sender, PaintEventArgs e)
         {

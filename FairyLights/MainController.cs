@@ -9,35 +9,60 @@ using System.Threading.Tasks;
 namespace FairyLights
 {
     public delegate void ChangeGameState(int GameState);
-    public delegate void AddNewButton(Button button);
-    public interface Controller
+    public delegate void AddNewButton(Button button, int numberPanel);
+    public interface IController
     {
         event ChangeGameState ChangeGame;
         event AddNewButton AddButton;
-        void CreateButton();
+        void CreateButton(int numberPanel);
         void OnMouseClick(object sender, MouseEventArgs e);
         void OnPaint(object sender, PaintEventArgs e);
     }
     class MainController
     {
         public MainForm MainForm { get; private set; }
-        public Controller[] Controllers { get; private set; }
+        public IController[] Controllers { get; private set; }
+        public static Dictionary<string, int> State { get; private set; }
+
 
         public MainController(int wigth, int heigth)
         {
-            MainForm = new MainForm();
-            MainForm.ClientSize = new Size(wigth, heigth);
-            Controllers = new Controller[1];
-            Controllers[0] = new MenuController(MainForm.ClientSize);
-            Controllers[0].AddButton += OnAddButton;
-            Controllers[0].CreateButton();
-            Controllers[0].ChangeGame += OnChangeGame;
-            MainForm.Paint += Controllers[0].OnPaint;
+            DefinitionState();
+            MainForm = new MainForm(State.Count - 1, new Size(wigth, heigth));
+            Controllers = new IController[State.Count-1];
+            CreateControllers();
         }
 
-        public void OnAddButton(Button button)
+        private void DefinitionState()
         {
-            MainForm.Controls.Add(button);
+            State = new Dictionary<string, int>();
+            State.Add("MainMenu", 0);
+            State.Add("Game", 1);
+            //State.Add("Help", 2);
+            State.Add("Exit", 3);
+        }
+
+        private void CreateControllers()
+        {
+            Controllers[0] = new MenuController(MainForm.ClientSize);
+            Controllers[1] = new GameController(MainForm.ClientSize);
+
+            for (int i=0; i<Controllers.Length; i++)
+            {
+                SubscriptionEventController(Controllers[i]);
+                Controllers[i].CreateButton(i);
+                MainForm.SubscriptionEvent(MainForm.Panels[i], Controllers[i]);
+            }      
+        }
+
+        private void SubscriptionEventController(IController controller)
+        {
+            controller.AddButton += OnAddButton;
+            controller.ChangeGame += OnChangeGame;
+        }
+        public void OnAddButton(Button button, int numberPanel)
+        {
+            MainForm.Panels[numberPanel].Controls.Add(button);
         }
 
         public void OnChangeGame(int GameState)
