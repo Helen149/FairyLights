@@ -25,9 +25,10 @@ namespace FairyLights
             panel.MouseDoubleClick += OnMouseClick;
             ButtonMenu = new List<Button>();
             CreateButton();
+            
         }
 
-        public void OnNewGame(int rank)
+        public void CreateNewGame(int rank)
         {
             Game = new GameModel(panel.Width, panel.Height, rank);
         }
@@ -39,9 +40,9 @@ namespace FairyLights
             ButtonMenu[0].Font = new Font("Arial", 12);
             ButtonMenu[0].Size = new Size(100, 50);
             ButtonMenu[0].Location = new System.Drawing.Point(10, panel.Height - 10- ButtonMenu[0].Height);
+            ButtonMenu[0].BackColor = Color.LemonChiffon;
             panel.Controls.Add(ButtonMenu[0]);
             ButtonMenu[0].MouseClick += OnMouseClickButton;
-            
         }
 
         public void OnMouseClickButton(object sender, MouseEventArgs e)
@@ -70,6 +71,7 @@ namespace FairyLights
 
         public void OnPaint(object sender, PaintEventArgs e)
         {
+            DrawingGame.DrawBackground(e, panel.Size);
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             for (int i = 0; i < Game.Lights.Length; i++)
             {

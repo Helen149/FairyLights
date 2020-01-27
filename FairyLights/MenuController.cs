@@ -58,16 +58,12 @@ namespace FairyLights
             else if (sender.Equals(ButtonMenu[1]))
                 ChangeGame?.Invoke(2);
             else
-                ChangeGame?.Invoke(3);
+                ChangeGame?.Invoke(MainController.State["Exit"]);
         }
         public void OnPaint(object sender, PaintEventArgs e)
         {
             DrawingGame.DrawBackground(e, panel.Size);
         }
 
-        public void OnNewGame(int rank)
-        {
-
-        }
     }
 }
