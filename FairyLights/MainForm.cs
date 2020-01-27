@@ -14,7 +14,6 @@ namespace FairyLights
         
         public MainForm(int countPanel, Size size)
         {
-            this.DoubleBuffered = true;
             ClientSize = size;
             Panels = new List<Panel>();
             CreatePanel(countPanel);
@@ -31,9 +30,5 @@ namespace FairyLights
             }      
         }
 
-        public void BufferSetting()
-        {
-            DoubleBuffered = true;
-        }
     }
 }

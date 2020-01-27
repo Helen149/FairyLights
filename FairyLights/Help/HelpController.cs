@@ -14,7 +14,7 @@ namespace FairyLights
         public Help Help { get; private set; }
         public List<Button> ButtonMenu { get; private set; }
         Panel panel;
-
+        Label label;
         public HelpController(Panel panel)
         {
             Help = new Help();
@@ -40,7 +40,7 @@ namespace FairyLights
 
         private void CreateLable()
         {
-            var label = new Label();
+            label = new Label();
             label.Text = Help.Rules;
             var indent = 300;
             label.Size = new Size(panel.Width-indent, panel.Height-indent);

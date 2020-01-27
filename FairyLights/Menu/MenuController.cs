@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FairyLights
 {
-    public class MenuController : IController
+    class MenuController : IController
     {
         public event ChangeGameState ChangeGame;
         public Menu MainMenu { get; private set; }
@@ -34,7 +34,7 @@ namespace FairyLights
                 ButtonMenu.Add(new Button());
                 DefinitionButton(i);
                 panel.Controls.Add(ButtonMenu[i]);
-                ButtonMenu[i].MouseClick += OnMouseClick;
+                ButtonMenu[i].MouseClick += OnMouseClickButton;
             }
         }
 
@@ -54,7 +54,7 @@ namespace FairyLights
             ButtonMenu[numberButton].BackColor = Color.LemonChiffon;
         }
 
-        public void OnMouseClick(object sender, MouseEventArgs e)
+        public void OnMouseClickButton(object sender, MouseEventArgs e)
         {
             if (typeMenu == 0)
                 ClickMainMenu(sender);
