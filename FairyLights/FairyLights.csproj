@@ -47,12 +47,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DrawingGame.cs" />
+    <Compile Include="Help.cs" />
     <Compile Include="MainController.cs" />
-    <Compile Include="Menu.cs" />
-    <Compile Include="MenuController.cs" />
+    <Compile Include="Menu\Menu.cs" />
+    <Compile Include="Menu\MenuController.cs" />
     <Compile Include="Model\GameModel.cs" />
     <Compile Include="Model\Lights.cs" />
-    <Compile Include="GameController.cs" />
+    <Compile Include="Model\GameController.cs" />
     <Compile Include="Model\LightsInModel.cs" />
     <Compile Include="Model\ParamInModel.cs" />
     <Compile Include="Model\Point.cs" />
