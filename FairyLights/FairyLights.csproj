@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="DrawingGame.cs" />
     <Compile Include="Help.cs" />
+    <Compile Include="HelpController.cs" />
     <Compile Include="MainController.cs" />
     <Compile Include="Menu\Menu.cs" />
     <Compile Include="Menu\MenuController.cs" />

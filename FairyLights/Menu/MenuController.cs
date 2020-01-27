@@ -56,7 +56,7 @@ namespace FairyLights
             if (sender.Equals(ButtonMenu[0]))
                 ChangeGame?.Invoke(MainController.State["Game"]);
             else if (sender.Equals(ButtonMenu[1]))
-                ChangeGame?.Invoke(2);
+                ChangeGame?.Invoke(MainController.State["Help"]);
             else
                 ChangeGame?.Invoke(MainController.State["Exit"]);
         }
