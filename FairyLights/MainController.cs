@@ -33,16 +33,18 @@ namespace FairyLights
         {
             State = new Dictionary<string, int>();
             State.Add("MainMenu", 0);
-            State.Add("Game", 1);
-            State.Add("Help", 2);
-            State.Add("Exit", 3);
+            State.Add("LvlMenu", 1);
+            State.Add("Game", 2);
+            State.Add("Help", 3);
+            State.Add("Exit", 4);
         }
 
         private void CreateControllers()
         {
-            Controllers[0] = new MenuController(MainForm.Panels[0]);
-            Controllers[1] = new GameController(MainForm.Panels[1]);
-            Controllers[2] = new HelpController(MainForm.Panels[2]);
+            Controllers[0] = new MenuController(MainForm.Panels[0], 0);
+            Controllers[1] = new MenuController(MainForm.Panels[1], 1);
+            Controllers[2] = new GameController(MainForm.Panels[2]);
+            Controllers[3] = new HelpController(MainForm.Panels[3]);
 
             for (int i = 0; i < Controllers.Length; i++)
                 Controllers[i].ChangeGame += OnChangeGame;
@@ -65,13 +67,17 @@ namespace FairyLights
                     break;
                 case (1):
                     VisabilityPanels(gameState);
-                    var game = (GameController)Controllers[1];
-                    game.CreateNewGame(2);
                     break;
                 case (2):
                     VisabilityPanels(gameState);
+                    var lvlControl = (MenuController)Controllers[1];
+                    var game = (GameController)Controllers[2];
+                    game.CreateNewGame(lvlControl.SizeGame);
                     break;
                 case (3):
+                    VisabilityPanels(gameState);
+                    break;
+                case (4):
                     Application.Exit();
                     break;
             }

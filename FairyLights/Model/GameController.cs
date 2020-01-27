@@ -39,7 +39,8 @@ namespace FairyLights
             ButtonMenu[0].Text = "В меню";
             ButtonMenu[0].Font = new Font("Arial", 12);
             ButtonMenu[0].Size = new Size(100, 50);
-            ButtonMenu[0].Location = new System.Drawing.Point(10, panel.Height - 10- ButtonMenu[0].Height);
+            var indent = 10;
+            ButtonMenu[0].Location = new System.Drawing.Point(indent, panel.Height - indent - ButtonMenu[0].Height);
             ButtonMenu[0].BackColor = Color.LemonChiffon;
             panel.Controls.Add(ButtonMenu[0]);
             ButtonMenu[0].MouseClick += OnMouseClickButton;

@@ -14,10 +14,13 @@ namespace FairyLights
         public Menu MainMenu { get; private set; }
         public List<Button> ButtonMenu { get; private set; }
         Panel panel;
+        int typeMenu;
+        public int SizeGame { get; private set; }
 
-        public MenuController(Panel panel)
+        public MenuController(Panel panel, int typeMenu)
         {
-            MainMenu = new Menu();
+            this.typeMenu = typeMenu;
+            MainMenu = new Menu(typeMenu);
             ButtonMenu = new List<Button>();
             this.panel = panel;
             panel.Paint += OnPaint;
@@ -53,17 +56,36 @@ namespace FairyLights
 
         public void OnMouseClick(object sender, MouseEventArgs e)
         {
+            if (typeMenu == 0)
+                ClickMainMenu(sender);
+            else
+                ClickLvlMenu(sender);
+        }
+
+        private void ClickMainMenu(object sender)
+        {
             if (sender.Equals(ButtonMenu[0]))
-                ChangeGame?.Invoke(MainController.State["Game"]);
+                ChangeGame?.Invoke(MainController.State["LvlMenu"]);
             else if (sender.Equals(ButtonMenu[1]))
                 ChangeGame?.Invoke(MainController.State["Help"]);
             else
                 ChangeGame?.Invoke(MainController.State["Exit"]);
         }
+
+        private void ClickLvlMenu(object sender)
+        {
+            var minSizeGame = 2;
+            for (int i = 0; i < ButtonMenu.Count; i++)
+                if (sender.Equals(ButtonMenu[i]))
+                    SizeGame = i + minSizeGame;
+            ChangeGame?.Invoke(MainController.State["Game"]);
+        }
+
         public void OnPaint(object sender, PaintEventArgs e)
         {
             DrawingGame.DrawBackground(e, panel.Size);
         }
 
     }
+
 }
